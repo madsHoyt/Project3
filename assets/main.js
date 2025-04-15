@@ -75,21 +75,21 @@ function airlines(dataObject) {
         const airlineName = airline.name;
         const logo = airline.logo;
 
-        // Create an anchor tag for the link (this will navigate to flights.html)
+        //create an anchor
         const card = document.createElement("a");
         card.classList.add("card");
         card.href = `flights.html?airline=${encodeURIComponent(airlineName)}`;
 
-        // Create and append the logo image
+        //create and append the logo image
         const logoImg = document.createElement("img");
         logoImg.src = logo;
         logoImg.alt = `${airlineName} logo`;
-        logoImg.classList.add("airline-logo"); // Optional: add a class for styling
+        logoImg.classList.add("airline-logo"); 
 
-        // Append the logo and name to the anchor tag
+        //append the logo and name to the anchor tag
         card.appendChild(logoImg);
 
-        // Add the card to the card grid
+        //add the card to the card grid
         cardGrid.appendChild(card);
     });
 }
