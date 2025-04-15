@@ -1,0 +1,91 @@
+body {
+    background-color: #DEEBF7;
+    color: #1A2E6B;
+    font-family: 'Poppins';
+}
+
+#flight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+    padding: 1.75rem;
+    margin-left: 2rem;
+    margin-right: 2em;
+}
+
+.flight-card {
+    background: #FFFFFF;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px #d9d9d9;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+}
+
+.flight-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flight-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.flight-details {
+    padding: 0.8rem;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.flight-date {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.flight-route {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.arrow {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.flight-times {
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flight-times .plane-icon {
+    font-size: 1.1rem;
+    margin: 0 0.4rem;
+}
+
+.flight-side-info {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* didn't work */
+    text-align: right;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Questions:
+how to make the edges of the time and origin/destination line up on outside edges
+also how to make the stats (miles, mins, etc.) to be the same height as the other div. */
