@@ -14,6 +14,8 @@
             rel="stylesheet"
         />
 
+        <link rel="icon" type="image/png" href="/assets/images/Logo.png" />
+
         <!--Font awesome -->
         <script
             src="https://kit.fontawesome.com/144a64cf0a.js"
@@ -23,12 +25,28 @@
     <body>
         <header>
             <div>
-                <a class="nav" href=""><i class="fa-solid fa-plane icon"></i></a>
+                <a class="nav" href=""
+                    ><i class="fa-solid fa-plane icon"></i
+                ></a>
             </div>
-            <div>
+
+            <div class="nav-right">
+                <form class="search-form" action="/flights.html" method="GET">
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Search flights..."
+                        class="search-input"
+                    />
+                    <button type="submit" class="search-button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+
                 <a class="nav" href="/flights.html">FLIGHTS</a>
             </div>
         </header>
+
         <section class="hero">
             <img src="/assets/images/plane.png" class="plane" />
             <img src="/assets/images/clouds.png" class="foreground-image" />
@@ -36,19 +54,24 @@
         </section>
         <section class="airlines">
             <h3 class="sub-header">AIRLINES</h3>
-            <div id="c-grid"class="card-grid"></div>
+            <div id="c-grid" class="card-grid"></div>
         </section>
         <footer>
             <div class="footer-container">
                 <div class="newsletter">
                     <h3>Subscribe to Our Newsletter</h3>
                     <form id="newsletter-form">
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        />
                         <button type="submit">Subscribe</button>
                     </form>
                     <div id="confirmation-message"></div>
                 </div>
-
             </div>
         </footer>
 

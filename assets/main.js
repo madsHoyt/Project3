@@ -1,5 +1,16 @@
-fetch("assets/json/flights.json")
-    .then((response) => response.json())
+fetch("https://flights.is120.ckearl.com/")
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Fetch failed");
+        }
+        return response.json();
+    })
+    .catch(() => {
+        //Do this instead
+        return fetch("assets/json/flights.json").then((response) =>
+            response.json()
+        );
+    })
     .then((dataObject) => {
         flightData(dataObject["data"]);
         airlines(dataObject["data"]);
@@ -84,7 +95,7 @@ function airlines(dataObject) {
         const logoImg = document.createElement("img");
         logoImg.src = logo;
         logoImg.alt = `${airlineName} logo`;
-        logoImg.classList.add("airline-logo"); 
+        logoImg.classList.add("airline-logo");
 
         //append the logo and name to the anchor tag
         card.appendChild(logoImg);
