@@ -1,7 +1,19 @@
-fetch("assets/json/flights.json")
-    .then((response) => response.json())
+fetch("https://flights.is120.ckearl.com/")
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Fetch failed");
+        }
+        return response.json();
+    })
+    .catch(() => {
+        //Do this instead
+        return fetch("assets/json/flights.json").then((response) =>
+            response.json()
+        );
+    })
     .then((dataObject) => {
         flightData(dataObject["data"]);
+        airlines(dataObject["data"]);
     });
 
 function flightData(dataObject) {
@@ -10,6 +22,8 @@ function flightData(dataObject) {
     // Loop through each airline
     dataObject.airlines.forEach((airline) => {
         const airlineName = airline.name;
+        //console.log("Airline:", airlineName);
+
 
         // Loop through each route for this airline
         airline.routes.forEach((route) => {
@@ -40,7 +54,7 @@ function flightData(dataObject) {
             const formattedArrivalTime = arrival.toLocaleTimeString("en-US", optionsTime);
 
             // Print all info in one console.log
-            console.log(`Airline: ${airlineName}
+            /*console.log(`Airline: ${airlineName}
 Origin: ${origin}
 Destination: ${destination}
 Distance: ${miles} miles
@@ -48,7 +62,7 @@ Departure Date: ${formattedDepartureDate}
 Departure Time: ${formattedDepartureTime}
 Arrival Time: ${formattedArrivalTime}
 Duration: ${duration} minutes
-------------------------`);
+------------------------`);*/
 
             createFlightCard(airlineName, origin, destination, miles, formattedDepartureDate, formattedDepartureTime, formattedArrivalTime, duration);
         });
@@ -123,6 +137,65 @@ function createFlightCard(airlineName, origin, destination, miles, formattedDepa
         //  departure
         // arrival
     //  on_time_percentage
+            
+            // //Test
+            // console.log(`Route: ${origin} ➡️ ${destination}`);
+            // console.log(`Distance: ${distance} miles`);
+            // console.log(
+            //     `Departure: ${formattedDepartureDate} at ${formattedDepartureTime}`
+            // );
+            // console.log(
+            //     `Arrival: ${formattedArrivalDate} at ${formattedArrivalTime}`
+            // );
+            // console.log(`Duration: ${duration} minutes`);
+            // console.log("---------------------------");
+        });
+    });
+}
+
+function airlines(dataObject) {
+    const cardGrid = document.getElementById("c-grid");
+
+    dataObject.airlines.forEach((airline) => {
+        const airlineName = airline.name;
+        const logo = airline.logo;
+
+        //create an anchor
+        const card = document.createElement("a");
+        card.classList.add("card");
+        card.href = `flights.html?airline=${encodeURIComponent(airlineName)}`;
+
+        //create and append the logo image
+        const logoImg = document.createElement("img");
+        logoImg.src = logo;
+        logoImg.alt = `${airlineName} logo`;
+        logoImg.classList.add("airline-logo");
+
+        //append the logo and name to the anchor tag
+        card.appendChild(logoImg);
+
+        //add the card to the card grid
+        cardGrid.appendChild(card);
+    });
+}
+
+//Getting Email for Newsletter
+document
+    .getElementById("newsletter-form")
+    .addEventListener("submit", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+
+        console.log("Email submitted:", email);
+
+        // Change the inner HTML of the confirmation message
+        const confirmationMessage = document.getElementById(
+            "confirmation-message"
+        );
+        confirmationMessage.innerHTML = `<p>Thank you for subscribing, ${email}!</p>`;
+
+        document.getElementById("email").value = "";
+    });
 
 /* 
     "origin": "ATL",  --
@@ -148,3 +221,36 @@ function createFlightCard(airlineName, origin, destination, miles, formattedDepa
 //phones 1 col
 //tablet 2 or 3 col
 //website 4 col
+
+/* Chat Help:
+    Q: I have this format: 2025-03-31T08:30:00-04:00 how can I extract the time and date.
+    A: {
+        const optionsDate = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        const optionsTime = {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        };
+        const formattedDepartureDate = departure.toLocaleDateString(
+            "en-US",
+            optionsDate
+        );
+        const formattedDepartureTime = departure.toLocaleTimeString(
+            "en-US",
+            optionsTime
+        );
+
+        const formattedArrivalDate = arrival.toLocaleDateString(
+            "en-US",
+            optionsDate
+        );
+        const formattedArrivalTime = arrival.toLocaleTimeString(
+            "en-US",
+            optionsTime
+        );
+    }
+*/
