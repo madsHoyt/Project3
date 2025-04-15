@@ -17,12 +17,13 @@ function flightData(dataObject) {
         airline.routes.forEach((route) => {
             const origin = route.origin;
             const destination = route.destination;
-            const distance = route.distance_miles;
+            const miles = route.distance_miles;
 
             // Next flight info
-            const departure = new Date(route.next_flight.departure);
-            const arrival = new Date(route.next_flight.arrival);
-            const duration = route.next_flight.duration_minutes;
+            const nextFlight = route.next_flight;
+            const departure = new Date(nextFlight.departure);
+            const arrival = new Date(nextFlight.arrival);
+            const duration = nextFlight.duration_minutes;
 
             // Format date and time
             const optionsDate = {
@@ -53,6 +54,17 @@ function flightData(dataObject) {
                 optionsTime
             );
 
+            //Call createFlightCard
+            createFlightCard(
+                airlineName,
+                origin,
+                destination,
+                miles,
+                formattedDepartureDate,
+                formattedDepartureTime,
+                formattedArrivalTime,
+                duration
+            );
             // //Test
             // console.log(`Route: ${origin} ➡️ ${destination}`);
             // console.log(`Distance: ${distance} miles`);
@@ -66,6 +78,66 @@ function flightData(dataObject) {
             // console.log("---------------------------");
         });
     });
+}
+function createFlightCard(
+    airlineName,
+    origin,
+    destination,
+    miles,
+    formattedDepartureDate,
+    formattedDepartureTime,
+    formattedArrivalTime,
+    duration
+) {
+    // Main card container
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("flight-card");
+
+    // Flight logo or image
+    const logoContainer = document.createElement("div");
+    logoContainer.classList.add("flight-logo");
+    logoContainer.innerHTML = `<img src="./assets/images/plane.avif" alt="plane_image">`;
+
+    // Flight content container
+    const flightDetails = document.createElement("div");
+    flightDetails.classList.add("flight-details");
+
+    // Date row
+    const dateRow = document.createElement("div");
+    dateRow.classList.add("flight-date");
+    dateRow.textContent = formattedDepartureDate;
+
+    // Origin → Destination row
+    const routeRow = document.createElement("div");
+    routeRow.classList.add("flight-route");
+    routeRow.innerHTML = `<span class="origin">${origin}</span><span class="arrow">→</span><span class="destination">${destination}</span>`;
+
+    // Time row
+    const timeRow = document.createElement("div");
+    timeRow.classList.add("flight-times");
+    timeRow.innerHTML = `
+        <span class="departure-time">${formattedDepartureTime}</span>
+        <span class="arrival-time">${formattedArrivalTime}</span>
+    `;
+
+    // Side info block
+    const sideInfo = document.createElement("div");
+    sideInfo.classList.add("flight-side-info");
+    sideInfo.innerHTML = `
+        <div>${miles} mi</div>
+        <div>${duration} min</div>
+        <div>${airlineName.toUpperCase()}</div>
+    `;
+
+    flightDetails.appendChild(dateRow);
+    flightDetails.appendChild(routeRow);
+    flightDetails.appendChild(timeRow);
+
+    gridItem.appendChild(logoContainer);
+    gridItem.appendChild(flightDetails);
+    gridItem.appendChild(sideInfo);
+
+    document.getElementById("flight-grid").appendChild(gridItem);
 }
 
 function airlines(dataObject) {
@@ -84,7 +156,7 @@ function airlines(dataObject) {
         const logoImg = document.createElement("img");
         logoImg.src = logo;
         logoImg.alt = `${airlineName} logo`;
-        logoImg.classList.add("airline-logo"); 
+        logoImg.classList.add("airline-logo");
 
         //append the logo and name to the anchor tag
         card.appendChild(logoImg);
