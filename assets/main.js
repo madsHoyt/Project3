@@ -6,14 +6,14 @@ fetch("https://flights.is120.ckearl.com/")
         return response.json();
     })
     .catch(() => {
-        //Do this instead
+        // Do this instead
         return fetch("assets/json/flights.json").then((response) =>
             response.json()
         );
     })
     .then((dataObject) => {
         flightData(dataObject["data"]);
-        //airlines(dataObject["data"]);
+        // airlines(dataObject["data"]);
     });
 
 function flightData(dataObject) {
@@ -112,7 +112,6 @@ function createFlightCard(
     const timeParts = formattedDepartureTime.split(":");
     const hours = parseInt(timeParts[0], 10);
 
-    // You can now use conditions based on the hour
 
     if (hours < 12) {
         logoContainer.innerHTML = `<img src="/assets/images/morning.png" alt="Plane in the morning sky">`;
