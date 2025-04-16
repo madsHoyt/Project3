@@ -1,3 +1,4 @@
+let dataObject;
 fetch("https://flights.is120.ckearl.com/")
     .then((response) => {
         if (!response.ok) {
@@ -11,14 +12,21 @@ fetch("https://flights.is120.ckearl.com/")
             response.json()
         );
     })
-    .then((dataObject) => {
-        flightData(dataObject["data"]);
-        //airlines(dataObject["data"]);
+    .then((data) => {
+        dataObject = data;
+        const page = document.body.dataset.page;
+        console.log(page);
+        if (page === "flights") {
+            flightData(dataObject["data"]);
+        } else if (page === "index") {
+            airlines(dataObject["data"]);
+        }
     });
 
+//Grid
 function flightData(dataObject) {
+    const toggle = document.getElementById("toggle-view");
     console.log(dataObject);
-
     // Loop through each airline
     dataObject.airlines.forEach((airline) => {
         const airlineName = airline.name;
@@ -74,7 +82,8 @@ function flightData(dataObject) {
                 formattedDepartureDate,
                 formattedDepartureTime,
                 formattedArrivalTime,
-                duration
+                duration,
+                toggle
             );
             // //Test
             // console.log(`Route: ${origin} ➡️ ${destination}`);
@@ -90,6 +99,7 @@ function flightData(dataObject) {
         });
     });
 }
+
 function createFlightCard(
     airlineName,
     origin,
@@ -98,36 +108,40 @@ function createFlightCard(
     formattedDepartureDate,
     formattedDepartureTime,
     formattedArrivalTime,
-    duration
+    duration,
+    toggle
 ) {
     // Main card container
     const gridItem = document.createElement("div");
     gridItem.classList.add("flight-card");
 
-    // Flight logo or image
-    const logoContainer = document.createElement("div");
-    logoContainer.classList.add("flight-logo");
+    if (toggle.checked) {
+        // Flight logo or image
+        const logoContainer = document.createElement("div");
+        logoContainer.classList.add("flight-logo");
 
-    // Convert to Date object using today's date
-    const timeParts = formattedDepartureTime.split(":");
-    const hours = parseInt(timeParts[0], 10);
+        // Convert to Date object using today's date
+        const timeParts = formattedDepartureTime.split(":");
+        const hours = parseInt(timeParts[0], 10);
 
-    // You can now use conditions based on the hour
+        // You can now use conditions based on the hour
 
-    if (hours < 12) {
-        logoContainer.innerHTML = `<img src="/assets/images/morning.png" alt="Plane in the morning sky">`;
-    } else if (hours >= 18) {
-        logoContainer.innerHTML = `<img src="/assets/images/night.png" alt="Plane in the night sky">`;
-    } else {
-        logoContainer.innerHTML = `<img src="/assets/images/afternoon.png" alt="plane_image">`;
+        if (hours < 12) {
+            logoContainer.innerHTML = `<img src="/assets/images/morning.png" alt="Plane in the morning sky">`;
+        } else if (hours >= 18) {
+            logoContainer.innerHTML = `<img src="/assets/images/night.png" alt="Plane in the night sky">`;
+        } else {
+            logoContainer.innerHTML = `<img src="/assets/images/afternoon.png" alt="plane_image">`;
+        }
+
+        logoContainer.classList.add("relative-position");
+
+        const airline = document.createElement("p");
+        airline.innerHTML = airlineName.toUpperCase();
+        airline.classList.add("airline-name");
+        logoContainer.append(airline);
+        gridItem.appendChild(logoContainer);
     }
-
-    logoContainer.classList.add("relative-position");
-
-    const airline = document.createElement("p");
-    airline.innerHTML = airlineName.toUpperCase();
-    airline.classList.add("airline-name");
-    console.log("Hello");
     // Flight content container
     const flightDetails = document.createElement("div");
     flightDetails.classList.add("flight-details");
@@ -145,10 +159,8 @@ function createFlightCard(
     // Time row
     const timeRow = document.createElement("div");
     timeRow.classList.add("flight-times");
-    timeRow.innerHTML = `
-        <span class="departure-time">${formattedDepartureTime}</span>
-        <span class="arrival-time">${formattedArrivalTime}</span>
-    `;
+    timeRow.innerHTML = `${formattedDepartureTime} - ${formattedArrivalTime}`;
+    timeRow.classList.add("departure-time");
 
     // Side info block
     const sideInfo = document.createElement("div");
@@ -156,63 +168,71 @@ function createFlightCard(
     sideInfo.innerHTML = `
         <div>${miles} mi</div>
         <div>${duration} min</div>
-        <div>${airlineName.toUpperCase()}</div>
     `;
 
     flightDetails.appendChild(dateRow);
     flightDetails.appendChild(routeRow);
     flightDetails.appendChild(timeRow);
 
-    gridItem.appendChild(logoContainer);
     gridItem.appendChild(flightDetails);
     gridItem.appendChild(sideInfo);
 
     document.getElementById("flight-grid").appendChild(gridItem);
 }
 
-// function airlines(dataObject) {
-//     const cardGrid = document.getElementById("c-grid");
+document.getElementById("toggle-view").addEventListener("change", function () {
+    if (this.checked) {
+        flightData(dataObject["data"]);
+        console.log("Toggle ON");
+    } else {
+        flightData(dataObject["data"]);
+        console.log("Toggle OFF");
+    }
+});
+//Airlines
+function airlines(dataObject) {
+    const cardGrid = document.getElementById("c-grid");
 
-//     dataObject.airlines.forEach((airline) => {
-//         const airlineName = airline.name;
-//         const logo = airline.logo;
+    dataObject.airlines.forEach((airline) => {
+        const airlineName = airline.name;
+        const logo = airline.logo;
 
-//         //create an anchor
-//         const card = document.createElement("a");
-//         card.classList.add("card");
-//         card.href = `flights.html?airline=${encodeURIComponent(airlineName)}`;
+        //create an anchor
+        const card = document.createElement("a");
+        card.classList.add("card");
+        card.href = `flights.html?airline=${encodeURIComponent(airlineName)}`;
 
-//         //create and append the logo image
-//         const logoImg = document.createElement("img");
-//         logoImg.src = logo;
-//         logoImg.alt = `${airlineName} logo`;
-//         logoImg.classList.add("airline-logo");
+        //create and append the logo image
+        const logoImg = document.createElement("img");
+        logoImg.src = logo;
+        logoImg.alt = `${airlineName} logo`;
+        logoImg.classList.add("airline-logo");
 
-//         //append the logo and name to the anchor tag
-//         card.appendChild(logoImg);
+        //append the logo and name to the anchor tag
+        card.appendChild(logoImg);
 
-//         //add the card to the card grid
-//         cardGrid.appendChild(card);
-//     });
-// }
+        //add the card to the card grid
+        cardGrid.appendChild(card);
+    });
+}
 
 //Getting Email for Newsletter
-// document
-//     .getElementById("newsletter-form")
-//     .addEventListener("submit", function (event) {
-//         event.preventDefault();
-//         const email = document.getElementById("email").value;
+document
+    .getElementById("newsletter-form")
+    .addEventListener("submit", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
 
-//         console.log("Email submitted:", email);
+        console.log("Email submitted:", email);
 
-//         // Change the inner HTML of the confirmation message
-//         const confirmationMessage = document.getElementById(
-//             "confirmation-message"
-//         );
-//         confirmationMessage.innerHTML = `<p>Thank you for subscribing, ${email}!</p>`;
+        // Change the inner HTML of the confirmation message
+        const confirmationMessage = document.getElementById(
+            "confirmation-message"
+        );
+        confirmationMessage.innerHTML = `<p>Thank you for subscribing, ${email}!</p>`;
 
-//         document.getElementById("email").value = "";
-//     });
+        document.getElementById("email").value = "";
+    });
 
 /* 
     "origin": "ATL",  --
