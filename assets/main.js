@@ -12,6 +12,12 @@ fetch("https://flights.is120.ckearl.com/")
         );
     })
     .then((dataObject) => {
+        // Hide loader
+       document.getElementById("loader-image").classList.add("hidden");
+
+       // Show cards
+       document.getElementById("plane-animation").classList.remove("hidden");
+
         flightData(dataObject["data"]);
         // airlines(dataObject["data"]);
     });

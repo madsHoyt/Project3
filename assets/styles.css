@@ -448,22 +448,51 @@ main > div > h1 {
     align-items: center;
 }
 
-.plane-animation {
+#plane-animation {
     position: relative;
-    animation: fly-up 5s ease-out /* or linear? */ forwards;
-  }
-  
-@keyframes fly-up {
-0% {
+    animation: fly-up 4s linear /* or ease-out? */ forwards;
+ }
+ 
+ 
+ .hidden {
+    display: none;
+ }
+ 
+ #loader-image {
+
+ }
+ 
+ #loader {
+   animation: loading 1s timing-function delay infinite direction fill-mode;
+ }
+ 
+ 
+ @keyframes loading {
+    0% {
+ 
+ 
+    }
+    50% {
+       
+    }
+    100% {
+ 
+ 
+    }
+ }
+
+  @keyframes fly-up {
+ 0% {
     transform: translateY(100vh);
-}
-70% {
+ }
+ 70% {
     transform: translateY(0);
-}
-100% {
-    transform: translateY(-48vh); 
-}
-}
+ }
+ 100% {
+    transform: translateY(-49vh);
+ }
+ }
+ 
 
 
 
