@@ -372,8 +372,23 @@ footer {
     color: #1a2e6b;
 }
 
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-container img {
+    height: 33rem;
+    width: auto;
+}
+
 .plane-animation {
     animation: fly-up 4s linear /* or ease-out? */ forwards;
+}
+
+.hidden {
+    display: none;
 }
 
 .up-plane{
@@ -406,11 +421,16 @@ footer {
     background: #ffffff;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 2px 8px #d9d9d9;
+    box-shadow: 0 2px 8px #1a2e6b4d;
     position: relative;
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease-in-out;
+}
+
+.flight-card:hover {
+    transform: scale(1.08);
+    cursor: pointer;
 }
 
 .flight-logo {
@@ -427,7 +447,7 @@ footer {
 
 .flight-details {
     padding: 0.8rem;
-    width: 45%;
+    width: 54%;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;

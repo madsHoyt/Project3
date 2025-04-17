@@ -17,6 +17,8 @@ fetch("https://flights.is120.ckearl.com/")
         const page = document.body.dataset.page;
         console.log(page);
         if (page === "flights") {
+            document.querySelector(".loader").classList.add("hidden");
+            document.querySelector(".plane-animation").classList.remove("hidden");
             flightData(dataObject["data"]);
         } else if (page === "index") {
             airlines(dataObject["data"]);
@@ -131,7 +133,7 @@ function createFlightCard(
         } else if (hours >= 18) {
             logoContainer.innerHTML = `<img src="/assets/images/night.png" alt="Plane in the night sky">`;
         } else {
-            logoContainer.innerHTML = `<img src="/assets/images/afternoon.png" alt="plane_image">`;
+            logoContainer.innerHTML = `<img src="/assets/images/afternoon.png" alt="Plane in the afternoon sky">`;
         }
 
         logoContainer.classList.add("relative-position");
