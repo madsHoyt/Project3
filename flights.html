@@ -12,7 +12,11 @@
             href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sacramento&display=swap"
             rel="stylesheet"
         />
-        <link rel="icon" type="image/png" href="/assets/images/Logo.png" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/assets/images/favicon.ico"
+        />
         <!--Font awesome -->
         <script
             src="https://kit.fontawesome.com/144a64cf0a.js"
@@ -22,30 +26,20 @@
     <body data-page="flights">
         <header>
             <div>
-                <a class="nav" href="/index.html"
+                <a class="nav plane-icon" href="/index.html"
                     ><i class="fa-solid fa-plane icon"></i
                 ></a>
             </div>
 
             <div class="nav-right">
-                <form class="search-form" action="/flights.html" method="GET">
-                    <input
-                        type="text"
-                        name="q"
-                        placeholder="Search flights..."
-                        class="search-input"
-                    />
-                    <button type="submit" class="search-button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </form>
-
-                <a class="nav" href="">FLIGHTS</a>
+                <a class="nav" href="flights.html" id="flights-nav">FLIGHTS</a>
             </div>
         </header>
         <main class="body-container">
             <section class="hero-flights">
-                <h1 class="title-page">FLIGHTS.</h1>
+                <div class="flight-title">
+                    <h1 class="title-page">FLIGHTS.</h1>
+                </div>
                 <div class="toggle">
                     <label class="label-switch">Details</label>
                     <label class="switch">
@@ -56,6 +50,7 @@
             </section>
             <section>
                 <div id="flight-grid"></div>
+                <div id="pagination-controls" class="pagination-controls"></div>
             </section>
         </main>
         <footer>

@@ -21,6 +21,9 @@ header {
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 .nav {
     text-decoration: none;
@@ -248,10 +251,15 @@ footer {
     }
     .title-page {
         justify-content: center;
+        padding-top: 4rem;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        text-align: center;
     }
     .hero-flights {
         justify-content: center;
         flex-direction: column;
+        margin-bottom: 2rem;
     }
     .plane {
         width: 100px;
@@ -262,6 +270,16 @@ footer {
     }
     .sub-header {
         font-size: 3rem;
+    }
+
+    .toggle {
+        margin-bottom: 3rem;
+    }
+
+    .flights-subheader {
+        text-align: center;
+        padding-bottom: 0.75rem;
+        font-size: 1.4rem;
     }
 }
 
@@ -289,6 +307,7 @@ footer {
     }
     .hero-flights {
         justify-content: space-between;
+        padding-top: 2rem;
     }
     .toggle {
         margin-right: 3.75rem;
@@ -301,6 +320,10 @@ footer {
     }
     .card-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .flights-subheader {
+        padding-left: 3.75rem;
+        font-size: 1.9rem;
     }
 }
 
@@ -349,12 +372,27 @@ footer {
     .airlines {
         margin: 0 1rem 0 1rem;
     }
+
+    .flights-subheader {
+        padding-left: 3.75rem;
+        font-size: 2rem;
+    }
 }
 
 /*Flights.html */
+.flight-title {
+    display: flex;
+    flex-direction: column;
+}
+
 .title-page {
     color: #1a2e6b;
+    margin-top: 2rem;
+    margin-bottom: 0;
 }
+#airline-title {
+}
+
 .hero-flights {
     display: flex;
     font-weight: 900;
@@ -467,6 +505,11 @@ footer {
     border-radius: 0 5px 5px 0;
 }
 
+.flights-subheader {
+    margin: 0;
+    color: #2196f3;
+}
+
 .toggle {
     display: flex;
     flex-direction: column;
@@ -536,6 +579,44 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+/*Pagination */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+}
+
+.pagination-controls button {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #1a2e6b;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #f0f0f0;
+    color: #1985de;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-controls .active-page {
+    background-color: #2196f3;
+    color: white;
+    border-color: #1985de;
+    font-weight: bold;
+}
+
 /* Questions:
 how to make the edges of the time and origin/destination line up on outside edges
 also how to make the stats (miles, mins, etc.) to be the same height as the other div. */

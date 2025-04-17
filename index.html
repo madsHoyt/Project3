@@ -14,7 +14,11 @@
             rel="stylesheet"
         />
 
-        <link rel="icon" type="image/png" href="/assets/images/Logo.png" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/assets/images/favicon.ico"
+        />
 
         <!--Font awesome -->
         <script
@@ -23,26 +27,20 @@
         ></script>
     </head>
     <body data-page="index">
+        <audio
+            id="plane-sound"
+            src="/assets/sounds/airplaneSound.mp3"
+            preload="auto"
+        ></audio>
+
         <header>
             <div>
-                <a class="nav" href=""
+                <a class="nav plane-icon" href=""
                     ><i class="fa-solid fa-plane icon"></i
                 ></a>
             </div>
 
             <div class="nav-right">
-                <form class="search-form" action="/flights.html" method="GET">
-                    <input
-                        type="text"
-                        name="q"
-                        placeholder="Search flights..."
-                        class="search-input"
-                    />
-                    <button type="submit" class="search-button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </form>
-
                 <a class="nav" href="/flights.html">FLIGHTS</a>
             </div>
         </header>

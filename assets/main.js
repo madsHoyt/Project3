@@ -1,4 +1,8 @@
 let dataObject;
+let currentPage = 1;
+const itemsPerPage = 30;
+let allFlightCards = [];
+
 fetch("https://flights.is120.ckearl.com/")
     .then((response) => {
         if (!response.ok) {
@@ -17,39 +21,43 @@ fetch("https://flights.is120.ckearl.com/")
         const page = document.body.dataset.page;
         console.log(page);
         if (page === "flights") {
-            flightData(dataObject["data"]);
+            const airlineParam = getQueryParam("airline");
+            flightData(dataObject["data"], airlineParam);
         } else if (page === "index") {
             airlines(dataObject["data"]);
         }
     });
 
 //Grid
-function flightData(dataObject) {
+function flightData(dataObject, airlineParam = null) {
     const toggle = document.getElementById("toggle-view");
-    console.log(dataObject);
-    // Loop through each airline
+    const flightGrid = document.getElementById("flight-grid");
+    flightGrid.innerHTML = "";
+    allFlightCards = [];
+
     dataObject.airlines.forEach((airline) => {
         const airlineName = airline.name;
-        //console.log("Airline:", airlineName);
 
-        // Loop through each route for this airline
+        if (airlineParam && airlineName !== airlineParam) {
+            return;
+        }
         airline.routes.forEach((route) => {
             const origin = route.origin;
             const destination = route.destination;
             const miles = route.distance_miles;
 
-            // Next flight info
             const nextFlight = route.next_flight;
             const departure = new Date(nextFlight.departure);
             const arrival = new Date(nextFlight.arrival);
             const duration = nextFlight.duration_minutes;
 
-            // Format date and time
+            //dates
             const optionsDate = {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
             };
+            //time
             const optionsTime = {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -63,18 +71,23 @@ function flightData(dataObject) {
                 "en-US",
                 optionsTime
             );
-
-            const formattedArrivalDate = arrival.toLocaleDateString(
-                "en-US",
-                optionsDate
-            );
             const formattedArrivalTime = arrival.toLocaleTimeString(
                 "en-US",
                 optionsTime
             );
+            if (airlineParam) {
+                const flightTitleDiv = document.querySelector(".flight-title");
 
-            //Call createFlightCard
-            createFlightCard(
+                if (flightTitleDiv && !flightTitleDiv.querySelector("h5")) {
+                    const airlineNameTitle = document.createElement("h5");
+                    airlineNameTitle.innerHTML = `${airlineParam}`;
+                    airlineNameTitle.classList.add("flights-subheader");
+                    flightTitleDiv.appendChild(airlineNameTitle);
+                }
+            }
+
+            // create card and store it
+            const card = createFlightCard(
                 airlineName,
                 origin,
                 destination,
@@ -85,19 +98,14 @@ function flightData(dataObject) {
                 duration,
                 toggle
             );
-            // //Test
-            // console.log(`Route: ${origin} ➡️ ${destination}`);
-            // console.log(`Distance: ${distance} miles`);
-            // console.log(
-            //     `Departure: ${formattedDepartureDate} at ${formattedDepartureTime}`
-            // );
-            // console.log(
-            //     `Arrival: ${formattedArrivalDate} at ${formattedArrivalTime}`
-            // );
-            // console.log(`Duration: ${duration} minutes`);
-            // console.log("---------------------------");
+
+            allFlightCards.push(card);
         });
     });
+
+    //call pagination items
+    showPage(currentPage);
+    renderPaginationButtons();
 }
 
 function createFlightCard(
@@ -142,27 +150,27 @@ function createFlightCard(
         logoContainer.append(airline);
         gridItem.appendChild(logoContainer);
     }
-    // Flight content container
+    //Flight content container
     const flightDetails = document.createElement("div");
     flightDetails.classList.add("flight-details");
 
-    // Date row
+    //Date row
     const dateRow = document.createElement("div");
     dateRow.classList.add("flight-date");
     dateRow.textContent = formattedDepartureDate;
 
-    // Origin → Destination row
+    //Origin --> Destination row
     const routeRow = document.createElement("div");
     routeRow.classList.add("flight-route");
     routeRow.innerHTML = `<span class="origin">${origin}</span><span class="arrow">→</span><span class="destination">${destination}</span>`;
 
-    // Time row
+    //Time row
     const timeRow = document.createElement("div");
     timeRow.classList.add("flight-times");
     timeRow.innerHTML = `${formattedDepartureTime} - ${formattedArrivalTime}`;
     timeRow.classList.add("departure-time");
 
-    // Side info block
+    //Side info block
     const sideInfo = document.createElement("div");
     sideInfo.classList.add("flight-side-info");
     sideInfo.innerHTML = `
@@ -177,18 +185,97 @@ function createFlightCard(
     gridItem.appendChild(flightDetails);
     gridItem.appendChild(sideInfo);
 
-    document.getElementById("flight-grid").appendChild(gridItem);
+    // document.getElementById("flight-grid").appendChild(gridItem);
+    return gridItem;
+}
+//Pagination
+function showPage(page) {
+    const flightGrid = document.getElementById("flight-grid");
+    flightGrid.innerHTML = "";
+
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageCards = allFlightCards.slice(start, end);
+
+    pageCards.forEach((card) => flightGrid.appendChild(card));
+}
+//Pagination
+function renderPaginationButtons() {
+    const container = document.getElementById("pagination-controls");
+    container.innerHTML = "";
+
+    const totalPages = Math.ceil(allFlightCards.length / itemsPerPage);
+
+    // Prev Button
+    const prevBtn = document.createElement("button");
+    prevBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>`;
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+        currentPage--;
+        showPage(currentPage);
+        renderPaginationButtons();
+    };
+    container.appendChild(prevBtn);
+
+    // Page Number Buttons
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+            pageBtn.classList.add("active-page");
+        }
+        pageBtn.onclick = () => {
+            currentPage = i;
+            showPage(currentPage);
+            renderPaginationButtons();
+        };
+        container.appendChild(pageBtn);
+    }
+
+    // Next Button
+    const nextBtn = document.createElement("button");
+    nextBtn.innerHTML = `<i class="fa-solid fa-arrow-right"></i>`;
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = () => {
+        currentPage++;
+        showPage(currentPage);
+        renderPaginationButtons();
+    };
+    container.appendChild(nextBtn);
 }
 
+//Toggle event listener
 document.getElementById("toggle-view").addEventListener("change", function () {
+    const airlineParam = getQueryParam("airline");
     if (this.checked) {
-        flightData(dataObject["data"]);
+        flightData(dataObject["data"], airlineParam);
         console.log("Toggle ON");
     } else {
-        flightData(dataObject["data"]);
+        flightData(dataObject["data"], airlineParam);
         console.log("Toggle OFF");
     }
 });
+//Event lister to clear query params
+document
+    .getElementById("flights-nav")
+    .addEventListener("click", function (event) {
+        if (
+            window.location.pathname.includes("flights.html") &&
+            window.location.search
+        ) {
+            event.preventDefault();
+
+            //remove query parameters from the URL
+            window.history.pushState({}, "", "flights.html");
+
+            const flightTitleDiv = document.querySelector(".flights-subheader");
+            if (flightTitleDiv) {
+                flightTitleDiv.innerHTML = "";
+            }
+            flightData(dataObject["data"]);
+        }
+    });
+
 //Airlines
 function airlines(dataObject) {
     const cardGrid = document.getElementById("c-grid");
@@ -216,6 +303,16 @@ function airlines(dataObject) {
     });
 }
 
+//Audio
+document.querySelectorAll(".plane-icon").forEach((icon) => {
+    icon.addEventListener("click", function (event) {
+        const sound = document.getElementById("plane-sound");
+        sound.play().catch((err) => {
+            console.log("Audio failed to play:", err);
+        });
+    });
+});
+
 //Getting Email for Newsletter
 document
     .getElementById("newsletter-form")
@@ -233,6 +330,11 @@ document
 
         document.getElementById("email").value = "";
     });
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
 
 /* 
     "origin": "ATL",  --
