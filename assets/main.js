@@ -18,7 +18,9 @@ fetch("https://flights.is120.ckearl.com/")
         console.log(page);
         if (page === "flights") {
             document.querySelector(".loader").classList.add("hidden");
-            document.querySelector(".plane-animation").classList.remove("hidden");
+            document
+                .querySelector(".plane-animation")
+                .classList.remove("hidden");
             flightData(dataObject["data"]);
         } else if (page === "index") {
             airlines(dataObject["data"]);
@@ -33,7 +35,6 @@ function flightData(dataObject) {
     dataObject.airlines.forEach((airline) => {
         const airlineName = airline.name;
         //console.log("Airline:", airlineName);
-
 
         // Loop through each route for this airline
         airline.routes.forEach((route) => {
@@ -59,6 +60,18 @@ function flightData(dataObject) {
                 hour12: true,
             };
 
+            const formattedDepartureDate = departure.toLocaleDateString(
+                "en-US",
+                optionsDate
+            );
+            const formattedDepartureTime = departure.toLocaleTimeString(
+                "en-US",
+                optionsTime
+            );
+            const formattedArrivalTime = arrival.toLocaleTimeString(
+                "en-US",
+                optionsTime
+            );
             //Call createFlightCard
             createFlightCard(
                 airlineName,
@@ -71,9 +84,6 @@ function flightData(dataObject) {
                 duration,
                 toggle
             );
-            const formattedDepartureDate = departure.toLocaleDateString("en-US", optionsDate);
-            const formattedDepartureTime = departure.toLocaleTimeString("en-US", optionsTime);
-            const formattedArrivalTime = arrival.toLocaleTimeString("en-US", optionsTime);
 
             // Print all info in one console.log
             /*console.log(`Airline: ${airlineName}
@@ -85,7 +95,6 @@ Departure Time: ${formattedDepartureTime}
 Arrival Time: ${formattedArrivalTime}
 Duration: ${duration} minutes
 ------------------------`);*/
-
         });
     });
 }
@@ -109,7 +118,7 @@ function createFlightCard(
         const modal = document.getElementById("flight-modal");
         const modalBody = document.getElementById("modal-body");
         const modalContent = modal.querySelector(".modal-content");
-    
+
         modalBody.innerHTML = `
             <h2>${origin} → ${destination}</h2>
             <p><strong>Date:</strong> ${formattedDepartureDate}</p>
@@ -118,16 +127,13 @@ function createFlightCard(
             <p><strong>Duration:</strong> ${duration} minutes</p>
             <p><strong>Airline:</strong> ${airlineName}</p>
         `;
-    
+
         modal.classList.remove("hidden");
-    
-        modalContent.classList.remove("fade-out"); 
-        void modalContent.offsetWidth; 
-        modalContent.classList.add("fade-in"); 
+
+        modalContent.classList.remove("fade-out");
+        void modalContent.offsetWidth;
+        modalContent.classList.add("fade-in");
     });
-    
-
-
 
     if (toggle.checked) {
         // Flight logo or image
@@ -256,10 +262,14 @@ function closeModal() {
     modalContent.classList.remove("fade-in");
     modalContent.classList.add("fade-out");
 
-    modalContent.addEventListener("animationend", () => {
-        modal.classList.add("hidden");
-        modalContent.classList.remove("fade-out");
-    }, { once: true });
+    modalContent.addEventListener(
+        "animationend",
+        () => {
+            modal.classList.add("hidden");
+            modalContent.classList.remove("fade-out");
+        },
+        { once: true }
+    );
 }
 
 document.querySelector(".close-btn").addEventListener("click", closeModal);
@@ -269,10 +279,6 @@ window.addEventListener("click", (e) => {
         closeModal();
     }
 });
-
-
-
-
 
 /* 
     "origin": "ATL",  --
@@ -292,7 +298,6 @@ window.addEventListener("click", (e) => {
      },
      "on_time_percentage": 87 --
     */
-
 
 //Media queries
 //phones 1 col

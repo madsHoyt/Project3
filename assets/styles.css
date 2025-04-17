@@ -1,7 +1,7 @@
 body {
-    background-color: #DEEBF7;
-    color: #1A2E6B;
-    font-family: 'Poppins';
+    background-color: #deebf7;
+    color: #1a2e6b;
+    font-family: "Poppins";
     margin: 0;
     padding: 0;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .flight-card {
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 8px #d9d9d9;
@@ -87,10 +87,6 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
 }
-
-/* Questions:
-how to make the edges of the time and origin/destination line up on outside edges
-also how to make the stats (miles, mins, etc.) to be the same height as the other div. */
 
 /* Landing page */
 .container {
@@ -482,12 +478,12 @@ main {
 
 @keyframes spin-around {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(-360deg);
+        transform: rotate(-360deg);
     }
-  }
+}
 
 .plane-animation {
     animation: fly-up 4s linear /* or ease-out? */ forwards;
@@ -497,17 +493,17 @@ main {
     display: none !important;
 }
 
-.up-plane{
+.up-plane {
     display: block;
     margin: 0 auto;
 }
 
 @keyframes fly-up {
     0% {
-       transform: translateY(100vh);
+        transform: translateY(90vh);
     }
     100% {
-       transform: translateY(-146vh);
+        transform: translateY(-120vh);
     }
 }
 
@@ -697,11 +693,11 @@ input:checked + .slider:before {
     justify-content: center;
     align-items: center;
     z-index: 132;
-  }
-  
+}
+
 .modal-content {
-    background: #FFFFFF;
-    color:#1a2e6b;
+    background: #ffffff;
+    color: #1a2e6b;
     font-size: larger;
     padding: 2rem;
     border-radius: 1rem;
@@ -709,7 +705,7 @@ input:checked + .slider:before {
     max-width: 500px;
     position: relative;
 }
-  
+
 .close-btn {
     position: absolute;
     top: 1rem;
