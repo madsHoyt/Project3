@@ -24,9 +24,17 @@ fetch("https://flights.is120.ckearl.com/")
             const airlineParam = getQueryParam("airline");
             flightData(dataObject["data"], airlineParam);
         } else if (page === "index") {
+            playSound();
             airlines(dataObject["data"]);
         }
     });
+
+//Sound
+function playSound() {
+    const sound = new Audio("sounds/airplaneSound.mp3");
+    sound.play();
+    sound.volume = 0.5;
+}
 
 //Grid
 function flightData(dataObject, airlineParam = null) {
@@ -335,8 +343,6 @@ function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
-
-
 /* 
     "origin": "ATL",  --
      "destination": "LAX", --

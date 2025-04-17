@@ -45,31 +45,6 @@ header {
     gap: 1rem;
 }
 
-.search-form {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 4px;
-    padding: 0.25rem 0.5rem;
-}
-
-.search-input {
-    border: none;
-    outline: none;
-    padding: 0.4rem 0.6rem;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-
-.search-button {
-    background: none;
-    border: none;
-    color: #1a2e6b;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0 0.5rem;
-}
-
 .hero {
     position: relative;
     grid-area: 2 / 1 / 3 / 2;
@@ -224,7 +199,7 @@ footer {
 .newsletter button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    background-color: #79add6;
+    background-color: #1985de;
     color: white;
     border: none;
     border-radius: 5px;
@@ -324,6 +299,11 @@ footer {
     .flights-subheader {
         padding-left: 3.75rem;
         font-size: 1.9rem;
+    }
+    .card:hover {
+        transform: scale(1.02);
+        transition: transform 0.3s ease;
+        cursor: pointer;
     }
 }
 
@@ -514,11 +494,11 @@ footer {
     display: flex;
     flex-direction: column;
 }
-   .toggles{
-        display: flex;
-        flex-direction: row;
-        gap:.5rem;
-    }
+.toggles {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -622,7 +602,27 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
+/* Back to Top Button*/
+.back-to-top {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #1a2e6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
 
-/* Questions:
-how to make the edges of the time and origin/destination line up on outside edges
-also how to make the stats (miles, mins, etc.) to be the same height as the other div. */
+.back-to-top:hover {
+    background-color: #1985de;
+}
+.btn-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
