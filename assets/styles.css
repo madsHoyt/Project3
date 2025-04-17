@@ -514,6 +514,11 @@ footer {
     display: flex;
     flex-direction: column;
 }
+   .toggles{
+        display: flex;
+        flex-direction: row;
+        gap:.5rem;
+    }
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -616,6 +621,7 @@ input:checked + .slider:before {
     border-color: #1985de;
     font-weight: bold;
 }
+
 
 /* Questions:
 how to make the edges of the time and origin/destination line up on outside edges

@@ -336,6 +336,7 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 
+
 /* 
     "origin": "ATL",  --
      "destination": "LAX", --
