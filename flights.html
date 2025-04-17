@@ -23,7 +23,14 @@
             crossorigin="anonymous"
         ></script>
     </head>
+
     <body data-page="flights">
+        <div id="flight-modal" class="modal hidden">
+            <div class="modal-content">
+              <span class="close-btn">&times;</span>
+              <div id="modal-body"></div>
+            </div>
+        </div>
         <header>
             <div>
                 <a class="nav plane-icon" href="/index.html"
@@ -36,11 +43,15 @@
             </div>
         </header>
         <main class="body-container">
-            <section class="hero-flights">
-                <div class="flight-title">
+            <div class="loader-container">
+                <img src="assets/images/loading.png" alt="wing it logo" class="loader">
+            </div>
+            <div class="plane-animation hidden">
+                <img src="/assets/images/flightsAirplane.png" alt="plane top view" class="up-plane">
+                <section class="hero-flights">
+                    <div class="flight-title">
                     <h1 class="title-page">FLIGHTS.</h1>
-                </div>
-                <div class="toggles">
+                  </div>
                     <div class="toggle">
                         <label class="label-switch">Details</label>
                         <label class="switch">
@@ -57,7 +68,9 @@
                     <a class="back-to-top" href="#">Back to Top</a>
                 </div>
             </section>
+
         </main>
+
         <footer>
             <div class="footer-container">
                 <div class="newsletter">
@@ -77,6 +90,14 @@
             </div>
         </footer>
 
+
         <script src="assets/main.js"></script>
     </body>
 </html>
+
+
+<!-- ideas/problems/help
+ - when refresh to be at the top of the page.
+ - When I refresh it the footer shows up at the top for a second???????
+ - extra spacing between grid and footer?!?
+ - maybe making the plane go around the globe? so two seperate images? -->
