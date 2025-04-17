@@ -171,11 +171,11 @@ function createFlightCard(
         // You can now use conditions based on the hour
 
         if (hours < 12) {
-            logoContainer.innerHTML = `<img src="/assets/images/morning.png" alt="Plane in the morning sky">`;
+            logoContainer.innerHTML = `<img src="assets/images/morning.png" alt="Plane in the morning sky">`;
         } else if (hours >= 18) {
-            logoContainer.innerHTML = `<img src="/assets/images/night.png" alt="Plane in the night sky">`;
+            logoContainer.innerHTML = `<img src="assets/images/night.png" alt="Plane in the night sky">`;
         } else {
-            logoContainer.innerHTML = `<img src="/assets/images/afternoon.png" alt="Plane in the afternoon sky">`;
+            logoContainer.innerHTML = `<img src="assets/images/afternoon.png" alt="Plane in the afternoon sky">`;
         }
 
         logoContainer.classList.add("relative-position");
@@ -397,7 +397,6 @@ window.addEventListener("click", (e) => {
         closeModal();
     }
 });
-
 
 /* 
     "origin": "ATL",  --
