@@ -20,6 +20,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 5;
     font-weight: 600;
 }
 .nav {
@@ -368,6 +371,28 @@ footer {
     background-color: #deebf7;
     color: #1a2e6b;
 }
+
+.plane-animation {
+    animation: fly-up 4s linear /* or ease-out? */ forwards;
+}
+
+.up-plane{
+    display: block;
+    margin: 0 auto;
+}
+
+@keyframes fly-up {
+    0% {
+       transform: translateY(100vh);
+    }
+    70% {
+       transform: translateY(0);
+    }
+    100% {
+       transform: translateY(-146vh);
+    }
+}
+
 #flight-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
