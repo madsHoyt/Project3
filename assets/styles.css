@@ -147,7 +147,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(/assets/images/cloudSky.png);
+    background-image: url(assets/images/cloudSky.png);
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
