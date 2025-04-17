@@ -23,8 +23,10 @@ fetch("https://flights.is120.ckearl.com/")
         if (page === "flights") {
             const airlineParam = getQueryParam("airline");
             document.querySelector(".loader").classList.add("hidden");
-            document.querySelector(".plane-animation").classList.remove("hidden");
-            flightData(dataObject["data"],airlineParam);
+            document
+                .querySelector(".plane-animation")
+                .classList.remove("hidden");
+            flightData(dataObject["data"], airlineParam);
         } else if (page === "index") {
             playSound();
             airlines(dataObject["data"]);
@@ -87,10 +89,6 @@ function flightData(dataObject, airlineParam = null) {
                 "en-US",
                 optionsTime
             );
-          
-           const formattedDepartureDate = departure.toLocaleDateString("en-US", optionsDate);
-            const formattedDepartureTime = departure.toLocaleTimeString("en-US", optionsTime);
-            const formattedArrivalTime = arrival.toLocaleTimeString("en-US", optionsTime);
 
             if (airlineParam) {
                 const flightTitleDiv = document.querySelector(".flight-title");
@@ -117,7 +115,6 @@ function flightData(dataObject, airlineParam = null) {
             );
 
             allFlightCards.push(card);
-
         });
     });
 
@@ -145,7 +142,7 @@ function createFlightCard(
         const modal = document.getElementById("flight-modal");
         const modalBody = document.getElementById("modal-body");
         const modalContent = modal.querySelector(".modal-content");
-    
+
         modalBody.innerHTML = `
             <h2>${origin} → ${destination}</h2>
             <p><strong>Date:</strong> ${formattedDepartureDate}</p>
@@ -154,16 +151,13 @@ function createFlightCard(
             <p><strong>Duration:</strong> ${duration} minutes</p>
             <p><strong>Airline:</strong> ${airlineName}</p>
         `;
-    
+
         modal.classList.remove("hidden");
-    
-        modalContent.classList.remove("fade-out"); 
-        void modalContent.offsetWidth; 
-        modalContent.classList.add("fade-in"); 
+
+        modalContent.classList.remove("fade-out");
+        void modalContent.offsetWidth;
+        modalContent.classList.add("fade-in");
     });
-    
-
-
 
     if (toggle.checked) {
         // Flight logo or image
@@ -373,7 +367,6 @@ document
         document.getElementById("email").value = "";
     });
 
-
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
@@ -387,10 +380,14 @@ function closeModal() {
     modalContent.classList.remove("fade-in");
     modalContent.classList.add("fade-out");
 
-    modalContent.addEventListener("animationend", () => {
-        modal.classList.add("hidden");
-        modalContent.classList.remove("fade-out");
-    }, { once: true });
+    modalContent.addEventListener(
+        "animationend",
+        () => {
+            modal.classList.add("hidden");
+            modalContent.classList.remove("fade-out");
+        },
+        { once: true }
+    );
 }
 
 document.querySelector(".close-btn").addEventListener("click", closeModal);
@@ -400,10 +397,6 @@ window.addEventListener("click", (e) => {
         closeModal();
     }
 });
-
-
-
-
 
 
 /* 
@@ -424,7 +417,6 @@ window.addEventListener("click", (e) => {
      },
      "on_time_percentage": 87 --
     */
-
 
 //Media queries
 //phones 1 col

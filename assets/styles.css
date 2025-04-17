@@ -1,7 +1,7 @@
 body {
-    background-color: #DEEBF7;
-    color: #1A2E6B;
-    font-family: 'Poppins';
+    background-color: #deebf7;
+    color: #1a2e6b;
+    font-family: "Poppins";
     margin: 0;
     padding: 0;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .flight-card {
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 2px 8px #d9d9d9;
@@ -500,35 +500,36 @@ main {
 
 @keyframes spin-around {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(-360deg);
+        transform: rotate(-360deg);
     }
-  }
+}
 
 .plane-animation {
-    animation: fly-up 4s linear /* or ease-out? */ forwards;
+    animation: fly-up 4s linear forwards;
 }
 
 .hidden {
     display: none !important;
 }
 
-.up-plane{
-    display: block;
-    margin: 0 auto;
-}
-
 @keyframes fly-up {
     0% {
-       transform: translateY(100vh);
+        transform: translateY(100vh);
     }
     100% {
-       transform: translateY(-146vh);
+        transform: translateY(-200vh);
     }
 }
-
+.up-plane {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+}
 #flight-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -773,7 +774,7 @@ input:checked + .slider:before {
 
 html {
     scroll-behavior: smooth;
-
+}
 /* Modal styling */
 .modal {
     position: fixed;
@@ -786,11 +787,11 @@ html {
     justify-content: center;
     align-items: center;
     z-index: 132;
-  }
-  
+}
+
 .modal-content {
-    background: #FFFFFF;
-    color:#1a2e6b;
+    background: #ffffff;
+    color: #1a2e6b;
     font-size: larger;
     padding: 2rem;
     border-radius: 1rem;
@@ -798,7 +799,7 @@ html {
     max-width: 500px;
     position: relative;
 }
-  
+
 .close-btn {
     position: absolute;
     top: 1rem;
@@ -836,5 +837,4 @@ html {
 
 .modal-content.fade-out {
     animation: modal-close-animation 0.4s ease-in forwards;
-
 }
