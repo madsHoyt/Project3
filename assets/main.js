@@ -34,6 +34,7 @@ function flightData(dataObject) {
         const airlineName = airline.name;
         //console.log("Airline:", airlineName);
 
+
         // Loop through each route for this airline
         airline.routes.forEach((route) => {
             const origin = route.origin;
@@ -57,23 +58,6 @@ function flightData(dataObject) {
                 minute: "2-digit",
                 hour12: true,
             };
-            const formattedDepartureDate = departure.toLocaleDateString(
-                "en-US",
-                optionsDate
-            );
-            const formattedDepartureTime = departure.toLocaleTimeString(
-                "en-US",
-                optionsTime
-            );
-
-            const formattedArrivalDate = arrival.toLocaleDateString(
-                "en-US",
-                optionsDate
-            );
-            const formattedArrivalTime = arrival.toLocaleTimeString(
-                "en-US",
-                optionsTime
-            );
 
             //Call createFlightCard
             createFlightCard(
@@ -87,17 +71,21 @@ function flightData(dataObject) {
                 duration,
                 toggle
             );
-            // //Test
-            // console.log(`Route: ${origin} ➡️ ${destination}`);
-            // console.log(`Distance: ${distance} miles`);
-            // console.log(
-            //     `Departure: ${formattedDepartureDate} at ${formattedDepartureTime}`
-            // );
-            // console.log(
-            //     `Arrival: ${formattedArrivalDate} at ${formattedArrivalTime}`
-            // );
-            // console.log(`Duration: ${duration} minutes`);
-            // console.log("---------------------------");
+            const formattedDepartureDate = departure.toLocaleDateString("en-US", optionsDate);
+            const formattedDepartureTime = departure.toLocaleTimeString("en-US", optionsTime);
+            const formattedArrivalTime = arrival.toLocaleTimeString("en-US", optionsTime);
+
+            // Print all info in one console.log
+            /*console.log(`Airline: ${airlineName}
+Origin: ${origin}
+Destination: ${destination}
+Distance: ${miles} miles
+Departure Date: ${formattedDepartureDate}
+Departure Time: ${formattedDepartureTime}
+Arrival Time: ${formattedArrivalTime}
+Duration: ${duration} minutes
+------------------------`);*/
+
         });
     });
 }
@@ -299,11 +287,12 @@ window.addEventListener("click", (e) => {
      "aircraft": "Boeing 767-300",
      "status": "Scheduled", --?
      "terminals": {
-     "departure": "S", --
-     "arrival": "2" --
+        "departure": "S", --
+        "arrival": "2" --
      },
      "on_time_percentage": 87 --
     */
+
 
 //Media queries
 //phones 1 col
