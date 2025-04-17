@@ -121,22 +121,24 @@ function createFlightCard(
         const modal = document.getElementById("flight-modal");
         const modalBody = document.getElementById("modal-body");
         const modalContent = modal.querySelector(".modal-content");
-
+    
         modalBody.innerHTML = `
             <h2>${origin} → ${destination}</h2>
             <p><strong>Date:</strong> ${formattedDepartureDate}</p>
-            <p><strong>Time:</strong> ${formattedDepartureTime}   ${formattedArrivalTime}</p>
+            <p><strong>Time:</strong> ${formattedDepartureTime} - ${formattedArrivalTime}</p>
             <p><strong>Distance:</strong> ${miles} miles</p>
             <p><strong>Duration:</strong> ${duration} minutes</p>
             <p><strong>Airline:</strong> ${airlineName}</p>
         `;
-
+    
         modal.classList.remove("hidden");
-
-        modalContent.classList.remove("modal-content"); 
-        void modalContent.offsetWidth;      
-        modalContent.classList.add("modal-content");
+    
+        modalContent.classList.remove("fade-out"); 
+        void modalContent.offsetWidth; 
+        modalContent.classList.add("fade-in"); 
     });
+    
+
 
 
     if (toggle.checked) {
@@ -259,9 +261,28 @@ document
     });
 
 // Close modal
-document.querySelector(".close-btn").addEventListener("click", () => {
-    document.getElementById("flight-modal").classList.add("hidden");
+function closeModal() {
+    const modal = document.getElementById("flight-modal");
+    const modalContent = modal.querySelector(".modal-content");
+
+    modalContent.classList.remove("fade-in");
+    modalContent.classList.add("fade-out");
+
+    modalContent.addEventListener("animationend", () => {
+        modal.classList.add("hidden");
+        modalContent.classList.remove("fade-out");
+    }, { once: true });
+}
+
+document.querySelector(".close-btn").addEventListener("click", closeModal);
+
+window.addEventListener("click", (e) => {
+    if (e.target.id === "flight-modal") {
+        closeModal();
+    }
 });
+
+
 
 
 

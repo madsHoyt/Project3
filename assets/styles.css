@@ -596,7 +596,7 @@ input:checked + .slider:before {
     z-index: 132;
   }
   
-  .modal-content {
+.modal-content {
     background: #FFFFFF;
     color:#1a2e6b;
     font-size: larger;
@@ -605,18 +605,18 @@ input:checked + .slider:before {
     width: 90%;
     max-width: 500px;
     position: relative;
-  }
+}
   
-  .close-btn {
+.close-btn {
     position: absolute;
     top: 1rem;
     right: 1.5rem;
     font-size: 2rem;
     cursor: pointer;
-  }
+}
 
-  /* Modal animation keyframes */
-@keyframes modal-animation {
+/* Modal animation keyframes */
+@keyframes modal-open-animation {
     0% {
         opacity: 0;
         transform: scale(0.9);
@@ -627,7 +627,21 @@ input:checked + .slider:before {
     }
 }
 
-.modal-content {
-    animation: modal-animation 0.4s ease-out;
+@keyframes modal-close-animation {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
 }
 
+.modal-content.fade-in {
+    animation: modal-open-animation 0.4s ease-out forwards;
+}
+
+.modal-content.fade-out {
+    animation: modal-close-animation 0.4s ease-in forwards;
+}
