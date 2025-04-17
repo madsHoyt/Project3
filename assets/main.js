@@ -117,6 +117,28 @@ function createFlightCard(
     const gridItem = document.createElement("div");
     gridItem.classList.add("flight-card");
 
+    gridItem.addEventListener("click", () => {
+        const modal = document.getElementById("flight-modal");
+        const modalBody = document.getElementById("modal-body");
+        const modalContent = modal.querySelector(".modal-content");
+
+        modalBody.innerHTML = `
+            <h2>${origin} → ${destination}</h2>
+            <p><strong>Date:</strong> ${formattedDepartureDate}</p>
+            <p><strong>Time:</strong> ${formattedDepartureTime}   ${formattedArrivalTime}</p>
+            <p><strong>Distance:</strong> ${miles} miles</p>
+            <p><strong>Duration:</strong> ${duration} minutes</p>
+            <p><strong>Airline:</strong> ${airlineName}</p>
+        `;
+
+        modal.classList.remove("hidden");
+
+        modalContent.classList.remove("modal-content"); 
+        void modalContent.offsetWidth;      
+        modalContent.classList.add("modal-content");
+    });
+
+
     if (toggle.checked) {
         // Flight logo or image
         const logoContainer = document.createElement("div");
@@ -235,6 +257,13 @@ document
 
         document.getElementById("email").value = "";
     });
+
+// Close modal
+document.querySelector(".close-btn").addEventListener("click", () => {
+    document.getElementById("flight-modal").classList.add("hidden");
+});
+
+
 
 /* 
     "origin": "ATL",  --

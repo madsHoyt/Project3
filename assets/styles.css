@@ -229,6 +229,7 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .newsletter button:hover {
@@ -311,12 +312,14 @@ footer {
 @media (min-width: 1025px) {
     .icon {
         font-size: 1.9rem;
+        transition: all 0.3s ease-in-out;
     }
     .icon:hover {
         color: #79add6;
     }
     .nav {
         font-size: 1.2rem;
+        transition: all 0.2s ease-in-out;
     }
     .nav:hover {
         color: #79add6;
@@ -388,7 +391,7 @@ footer {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .up-plane{
@@ -399,9 +402,6 @@ footer {
 @keyframes fly-up {
     0% {
        transform: translateY(100vh);
-    }
-    70% {
-       transform: translateY(0);
     }
     100% {
        transform: translateY(-146vh);
@@ -581,6 +581,53 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-/* Questions:
-how to make the edges of the time and origin/destination line up on outside edges
-also how to make the stats (miles, mins, etc.) to be the same height as the other div. */
+
+/* Modal styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 132;
+  }
+  
+  .modal-content {
+    background: #FFFFFF;
+    color:#1a2e6b;
+    font-size: larger;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  /* Modal animation keyframes */
+@keyframes modal-animation {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    animation: modal-animation 0.4s ease-out;
+}
+
