@@ -375,6 +375,10 @@ footer {
     color: #1a2e6b;
 }
 
+main {
+    position: relative;
+}
+
 .loader-container {
     display: flex;
     justify-content: center;
@@ -384,7 +388,17 @@ footer {
 .loader-container img {
     height: 33rem;
     width: auto;
+    animation: spin-around 1.3s linear infinite;
 }
+
+@keyframes spin-around {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
 
 .plane-animation {
     animation: fly-up 4s linear /* or ease-out? */ forwards;
